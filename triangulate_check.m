@@ -6,12 +6,10 @@ function [pts3d, reprojection_error] = triangulate_check(P1, pts1, P2, pts2)
 % Outputs:
 %   pts3d: Nx3 triangulated 3D points
 %   reprojection_error: mean reprojection error across both views
-
     N = size(pts1, 1);
     pts3d = zeros(N, 3);
     err1 = zeros(N, 1);
     err2 = zeros(N, 1);
-
     for i = 1:N
         A = [pts1(i,1)*P1(3,:) - P1(1,:);
              pts1(i,2)*P1(3,:) - P1(2,:);
@@ -35,7 +33,6 @@ function [pts3d, reprojection_error] = triangulate_check(P1, pts1, P2, pts2)
         err1(i) = norm(x1_proj' - pts1(i,:));
         err2(i) = norm(x2_proj' - pts2(i,:));
     end
-
     % Average reprojection error over all points
     reprojection_error = mean(err1 + err2);
 end
